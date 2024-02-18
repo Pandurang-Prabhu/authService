@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ public class JwtTokenService {
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
+                .expiresAt(now.plus(Duration.ofMinutes(1)))
                 .issuedAt(now)
                 .subject(auth.getName())
                 .claim("roles", scope)
